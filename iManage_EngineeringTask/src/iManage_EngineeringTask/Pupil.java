@@ -2,6 +2,7 @@ package iManage_EngineeringTask;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 
 public class Pupil {
@@ -29,13 +30,15 @@ public class Pupil {
 		
 		return dateOfBirth;
 	}
-	/*
+	
+	public String getFormatedDateOfBirth()
+	{
+	
 	String datePattern = "dd/MM/yyyy";
 	DateFormat df = new SimpleDateFormat(datePattern);
 	
-	Use this to format date when displaying
-	Not on accessor
-	*/
+	return df.format(dateOfBirth);
+	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
@@ -50,6 +53,22 @@ public class Pupil {
 	}
 	
 	
+	public static Comparator<Pupil> pupilAgeComparator = new Comparator<Pupil>()
+	{
+		public int compare(Pupil pupil1, Pupil pupil2)
+		{
+			return pupil1.getDateOfBirth().compareTo(pupil2.getDateOfBirth());
+		}
+		
+	};
 	
+	public static Comparator<Pupil> pupilRawMarkComparator = new Comparator<Pupil>()
+	{
+		public int compare(Pupil pupil1, Pupil pupil2)
+		{
+			return pupil2.getRawMark().compareTo(pupil1.getRawMark());
+		}
+		
+	};
 	
 }
