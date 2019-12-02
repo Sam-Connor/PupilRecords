@@ -20,19 +20,8 @@ public class EngineeringTask {
 		
 		pupils = new ArrayList<Pupil>();
 		populatePupilList();
-		printPupilList();
 		
-		System.out.println();
-		displayPupilsByAge();
-		
-		System.out.println();
-		displayPupilsByRawMark();
-		
-		displayAverageMark();
-		
-		System.out.println();
-		//addPupil();
-		//printPupilList();
+		menuSelector();
 
 	}
 
@@ -117,6 +106,7 @@ public class EngineeringTask {
 		
 		double averageMark = markTotal / pupils.size();
 		System.out.printf("The average mark of the pupils is: %.1f"  , averageMark );
+		System.out.println();
 	}
 
 	public static void addPupil() 
@@ -141,7 +131,6 @@ public class EngineeringTask {
 		System.out.println("Please enter the pupil's raw mark (one decimal place)");
 		Double rawMark = input.nextDouble();
 		
-		input.close();
 		
 		Pupil pupilToAdd = new Pupil(name, dateOfBirth, rawMark);
 		pupils.add(pupilToAdd);
@@ -157,6 +146,68 @@ public class EngineeringTask {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+	}
+
+	public static void displayMenu()
+	{
+		System.out.println("-----------Menu Options-----------");
+		System.out.println("1. Display All Pupils By Age - Oldest First");
+		System.out.println("2. Display All Pupils By Raw Mark - Highest First");
+		System.out.println("3. Display Average Raw Mark of All Pupils");
+		System.out.println("4. Add New Pupil");
+	}
+	
+	public static void menuSelector()
+	{
+		
+		Scanner menuInput = new Scanner(System.in);
+		boolean active = true;
+		
+		while(active)
+		{
+		displayMenu();
+		System.out.println("Please select a menu choice: ");
+		int choice = menuInput.nextInt();
+		
+		switch(choice)
+		{
+		case 1: displayPupilsByAge();
+		break;
+		case 2: displayPupilsByRawMark();
+		break;
+		case 3: displayAverageMark();
+		break;
+		case 4: addPupil();
+		break;
+		default: System.out.println("You have entered an invalid choice, try again.");
+		menuSelector();
+		break;
+		}
+		
+		System.out.println("Do you want to use another menu option? (Y/N)");
+		String restartChoice = "";
+		restartChoice += menuInput.next();
+		
+		if(restartChoice.equalsIgnoreCase("y"))
+		{
+			active = true;
+		}
+		
+		else if(restartChoice.equalsIgnoreCase("n"))
+		{
+			active = false;
+		}
+		
+		else
+		{
+			System.out.println("Error - Invalid Choice");
+			active = false;
+			break;
+		}
+		
+		
+		}
+		menuInput.close();
 	}
 }
 
