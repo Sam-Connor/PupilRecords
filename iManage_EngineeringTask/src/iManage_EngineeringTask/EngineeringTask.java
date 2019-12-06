@@ -13,16 +13,15 @@ public class EngineeringTask {
 	
 	static ArrayList<Pupil> pupils;
 	static String datePattern = "dd/MM/yyyy";
-	static String fileLocation = "C:\\Users\\samc5\\git\\pupilRecords\\iManage_EngineeringTask\\testData.csv";
+	static String fileLocation = "C:\\Users\\Sam\\git\\PupilRecords\\iManage_EngineeringTask\\testData.csv";
 	
 	
-	public static void main(String[] args) {
-		
+	public static void main(String[] args)
+	{
 		pupils = new ArrayList<Pupil>();
 		populatePupilList();
 		
 		menuSelector();
-
 	}
 
 	public static void readFile() throws IOException, ParseException
@@ -33,7 +32,6 @@ public class EngineeringTask {
 		
 		//Assigns a format for the dateOfBirth to be stored in.
 		DateFormat df = new SimpleDateFormat(datePattern);
-		//SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
 		
 		//iterates over all the records and parses the data.
 		for (CSVRecord record : records)
@@ -49,23 +47,22 @@ public class EngineeringTask {
 			pupils.add(p);
 			
 		}
-		
-				
-		
 	}
 	
 	public static void populatePupilList()
 	{
-		try {
+		try
+		{
 			readFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (ParseException e)
+		{
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public static void displayPupilsByAge()
@@ -85,15 +82,12 @@ public class EngineeringTask {
 		System.out.printf("%-20s %-20s %-5s", "Name", "Date Of Birth", "Mark");
 		System.out.println();
 		
-	    
-		
-		for (int i = 0; i < pupils.size(); i++) {
-			Pupil record = pupils.get(i);
-			String dateOfBirth = new SimpleDateFormat(datePattern).format(record.getDateOfBirth());
-		    System.out.printf("%-20s %-20s %-5s", record.getName(), dateOfBirth, record.getRawMark());
+		for (Pupil pupil : pupils)
+		{
+			String dateOfBirth = new SimpleDateFormat(datePattern).format(pupil.getDateOfBirth());
+		    System.out.printf("%-20s %-20s %-5s", pupil.getName(), dateOfBirth, pupil.getRawMark());
 		    System.out.println();
-		}
-		
+		}		
 	}
 
 	public static void displayAverageMark()
@@ -121,9 +115,12 @@ public class EngineeringTask {
 		
 		String inputDate = input.next();
 		Date dateOfBirth = null;
-		try {
+		try 
+		{
 			 dateOfBirth = new SimpleDateFormat(datePattern).parse(inputDate);
-		} catch (ParseException e) {
+		} 
+		catch (ParseException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -131,19 +128,20 @@ public class EngineeringTask {
 		System.out.println("Please enter the pupil's raw mark (one decimal place)");
 		Double rawMark = input.nextDouble();
 		
-		
 		Pupil pupilToAdd = new Pupil(name, dateOfBirth, rawMark);
 		pupils.add(pupilToAdd);
+	
 		
-		
-		try {
+		try 
+		{
 			FileWriter fw = new FileWriter(fileLocation,true);
 			PrintWriter pw = new PrintWriter(fw);
 			String record = name + "," + inputDate + "," + rawMark;
 			pw.println(record);
 			pw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		} 
 	}
@@ -166,7 +164,7 @@ public class EngineeringTask {
 		while(active)
 		{
 		displayMenu();
-		System.out.println("Please select a menu choice: ");
+		System.out.println("Please select a menu choice: (1-5)");
 		int choice = menuInput.nextInt();
 		
 		switch(choice)
@@ -185,8 +183,8 @@ public class EngineeringTask {
 		}
 		
 		System.out.println("Do you want to use another menu option? (Y/N)");
-		String restartChoice = "";
-		restartChoice += menuInput.next();
+		String restartChoice = menuInput.next();
+		System.out.println(restartChoice);
 		
 		if(restartChoice.equalsIgnoreCase("y"))
 		{
@@ -204,10 +202,9 @@ public class EngineeringTask {
 			active = false;
 			break;
 		}
-		
-		
 		}
 		menuInput.close();
+		
 	}
 }
 
