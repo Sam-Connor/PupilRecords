@@ -13,7 +13,7 @@ public class EngineeringTask {
 	
 	static ArrayList<Pupil> pupils;
 	static String datePattern = "dd/MM/yyyy";
-	static String fileLocation = "C:\\Users\\Sam\\git\\PupilRecords\\iManage_EngineeringTask\\testData.csv";
+	static String fileLocation = "C:\\Users\\Samc5\\git\\PupilRecords\\iManage_EngineeringTask\\testData.csv";
 	
 	
 	public static void main(String[] args)
@@ -145,6 +145,40 @@ public class EngineeringTask {
 			e.printStackTrace();
 		} 
 	}
+	
+	public static void updateMarksForAge()
+	{
+		Date dateStart2Marks = null;
+		Date dateEnd2Marks = null;
+		Date dateStart3Marks = null;
+		Date dateEnd3Marks = null;
+				
+		try 
+		{
+			dateStart2Marks = new SimpleDateFormat(datePattern).parse("29/02/2009");
+			dateEnd2Marks = new SimpleDateFormat(datePattern).parse("01/05/2009");
+			dateStart3Marks = new SimpleDateFormat(datePattern).parse("30/04/2009");
+			dateEnd3Marks = new SimpleDateFormat(datePattern).parse("01/01/2010");
+		} 
+		catch (ParseException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for (Pupil pupil : pupils) 
+		{
+			if(pupil.getDateOfBirth().after(dateStart2Marks) && pupil.getDateOfBirth().before(dateEnd2Marks))
+			{
+				pupil.setRawMark(pupil.getRawMark() + 2);
+			}
+			else if (pupil.getDateOfBirth().after(dateStart3Marks) && pupil.getDateOfBirth().before(dateEnd3Marks))
+			{
+				pupil.setRawMark(pupil.getRawMark() + 3);
+			}
+		}
+		printPupilList();
+	}
 
 	public static void displayMenu()
 	{
@@ -153,6 +187,7 @@ public class EngineeringTask {
 		System.out.println("2. Display All Pupils By Raw Mark - Highest First");
 		System.out.println("3. Display Average Raw Mark of All Pupils");
 		System.out.println("4. Add New Pupil");
+		System.out.println("5. Display Revised Marks");
 	}
 	
 	public static void menuSelector()
@@ -176,6 +211,8 @@ public class EngineeringTask {
 		case 3: displayAverageMark();
 		break;
 		case 4: addPupil();
+		break;
+		case 5: updateMarksForAge();
 		break;
 		default: System.out.println("You have entered an invalid choice, try again.");
 		menuSelector();
